@@ -116,30 +116,6 @@ namespace test
 			Assert::AreEqual("9 eur, 70 ct"s, os.str());
 		}
 
-		TEST_METHOD(TestMain) {
-			std::istringstream is(
-				"+ 6 80\n"
-				"+ 7 20\n"
-				"+ 12 40\n"
-				"- 5 50\n"
-				"+ 10 15\n"
-			);
-
-			money total(0);
-			char c;
-			money m;
-
-			while (is >> c >> m) {
-				if (c == '-')
-					total -= m;
-				else
-					total += m;
-
-			}
-
-
-
-		};
 	};
 
 }

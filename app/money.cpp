@@ -2,18 +2,18 @@
 #include <algorithm>
 #include <ostream>
 #include <istream>
-#include <iomanip>
+#include <format>
 
 namespace vsite::oop::v7
 {
 	money::money(long long eur, int ct) : cents(eur * 100 + ct) {}
-
+    
     money& money::operator+=(const money& other)
     {
         cents += other.cents;
         return *this;
     }
-
+    
     money& money::operator-=(const money& other)
     {
         cents -= other.cents;
@@ -27,7 +27,9 @@ namespace vsite::oop::v7
         long long eur = value / 100;
         int ct = value % 100;
 
-        if (m.cents < 0) { os << '-'; }
+        if (m.cents < 0) { 
+            os << '-'; 
+}
 
         if (eur == 0 && ct > 0) {
             os << ct << " ct";
@@ -36,11 +38,9 @@ namespace vsite::oop::v7
             os << eur << " eur";
         }
         else {
-            os << eur << " eur, " << std::setw(2) <<
-                std::setfill('0') << ct << " ct";
+            os << std::format("{} eur, {:02} ct", eur, ct);
         }
 
-        os << std::setfill(' ');
         return os;
     }
 
@@ -49,7 +49,7 @@ namespace vsite::oop::v7
         long long eur;
         int ct;
         if (is >> eur >> ct) {
-            m = money(eur, ct);
+            m.cents = eur * 100 + ct;
         }
         return is;
     }
